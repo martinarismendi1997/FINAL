@@ -1,0 +1,184 @@
+<!--Gustavo Falco (estudiante 218814) y Martin Arismendi (estudiante 353787)-->
+<!doctype html>
+<html lang="es">
+    <head>
+    <meta charset="utf-8">
+    <title>Mini juegos para todos</title>
+    <link rel="stylesheet" href="CSS/estilos.css">
+    <script src="JS/codigo.js"></script>
+    </head>
+
+    
+    <body>
+        <nav class="menu">    
+            <button type="button"> Datos</button>
+            <button type="button"> Juegos</button>
+            <button type="button"> Administrador</button>
+        </nav>
+        <header>
+                 <h1 id="idMiniJuego"> ¡Mini Juegos para todos!</h1> 
+        </header>
+        <section class="datos">
+            <h2> Datos </h2>
+
+            <article id="alta">
+             <form>
+                    <h2> Alta de jugadores </h2>
+
+                    <label for="Nombre"> Nombre </label>
+                    <input type="text" id="Nombre" name="Nombre" required>
+            
+                    <label for="Edad"> Edad </label>
+                    <input type="number" id="Edad" name="Edad" min="5" max="100" value="5">
+            
+                    <button type="button" id="AgregarAlta"> Agregar</button>
+              </form>
+            </article>
+            
+            <article id="info">
+                <h2> Información </h2>  
+                <form> <!--Ver la utilizacion de form-->
+                    <input type="radio" id="orden1" name="orden" value= "nombre_creciente" checked> 
+                    <label for="orden1">  Comentarios ordenados por nombre creciente </label>
+
+                    <input type="radio" id="orden2" name="orden" value= "edad_creciente">
+                    <label for="orden2">  Comentarios ordenados por edad creciente </label>
+                    <br>
+                    <label for="iddestacar" id="lblDestacar"> Destacar: (Ingrese palabra a destacar en los comentarios) </label>
+                    <input type="text" id="iddestacar" name="iddestacar">
+                </form>
+
+                <table id="idtabla">
+                    <thead>
+                        <tr id="tablaInformacion">
+                            <th style="width: 30%;">Nombre Jugador</th>
+                            <th style="width: 20%;">Edad</th>
+                            <th style="width: 50%;">Comentario</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+
+                <p> Jugadores con mayor cantidad de comentarios (ordenados por nombre)</p>
+    
+                <ul id="idListaJugMayorCant"> <!--le asignamos un id para luego cargar datos a la lista-->
+                    <li> Sin datos</li> 
+                </ul>
+
+                <p> Jugadores que nunca jugaron: (Ordenados por nombre)</p>
+
+                <ul id="idListaJugNucaJuega"> <!--le asignamos un id para luego cargar datos a la lista-->
+                    <li> Sin datos</li>
+                </ul>
+            </article>    
+        </section>
+
+        <section class="juegos">
+
+            <h2> ¡Juegos! </h2>
+            <article id="config">
+                <h2> Configurar </h2>
+
+                <label for="Jugador">  Jugador   </label>
+                <select name="Jugador" id="Jugador">
+                    <option value="A completar" label=" "> </option> <!--dejamos el option vacio a proposito-->
+                </select>
+
+                <label for="Sonido"> Sonido</label>
+                <input type="checkbox" id="Sonido" name="Sonido" value="Si"> <!--Esto lo saque de chatgpt // Checked para casilla marcada de forma predeterminada)-->
+            </article>
+
+            <article id="dif">
+                <h2> ¿Cuál es el diferente? </h2>
+                <h4> Presiona el diferente </h4> <!--aca creo que no va un h4 en el Ob2 van a ir datos-->
+                  <article id="ArtJuegoDif"> <table id="juegoDif"> </table> </article>
+            </article>
+
+            <article id="sum">
+                <h2> Calcula la suma </h2>
+                <h4> Suma los dos números </h4>
+
+                <label for="Enviar"> </label>
+                <input type="text" id="Enviar" name="Enviar">
+                <button type="button" id="idEnviarCalculaSuma"> Enviar </button>
+
+            </article>
+
+            <article id="coment">
+                <h2> Ingresa tu comentario </h2>
+
+                <label for="Comentarios"> Comentarios:</label><br>
+                <textarea id="Comentarios" name="Comentarios" rows="5" cols="40" required></textarea> <!--Esto lo saque de chatgpt // No necesita type porque textarea es universal, no acepta tipos-->
+                <br> <!--es para que quede debajo del cuedro "Comentarios" en estilos tenemos que modificarlo para eliminar este br-->
+                <button type="button" id="idEnviarComentario">Enviar comentario</button>
+            </article>    
+        </section>
+
+        <section class="admin">
+
+            <h2> Modo administrador </h2>
+            <article id="admin2">
+                <h4> Resumen (Datos ordenados por nombre de jugador) </h4>
+
+                <table id="idtablaAdmResumen">
+                    <thead>
+                        <tr id="trTablaAdmResumen">
+                            <th id="idTablaAdmNombre" style="width: 30%;">Nombre Jugador</th>
+
+                            <th id="idTablaAdmEdad" style="width: 20%;">Edad</th>
+
+                            <th id="idTablaAmDifOk" style="width: 10%;">
+                                <span class="label"> Diferente:</span> <!--separamos el texto del icono con span-->
+                                <span class="icono">✅</span>
+                            </th>
+
+                            <th id="idTablaAdmDifMal" style="width: 10%;">
+                                <span class="label">Diferente:</span> 
+                                <span class="icono">❌</span>
+                            </th>
+
+                            <th id="idTablaAdmSumaOk" style="width: 10%;">
+                                <span class="label">Suma:</span>
+                                <span class="icono">✅</span>
+                            </th>
+
+                            <th id="idTablaAdmSumaMal" style="width: 10%;">
+                                <span class="label">Suma:</span>
+                                <span class="icono">❌</span>
+                            </th>
+
+                            <th id="idTablaAmComent" style="width: 10%;">Cantidad de comentarios </th>
+                        </tr>
+
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+
+                <h4> Edición de comentarios (datos ordenados por hora)  </h4>  
+
+                <table id="idTablaAdmComentario">
+                    <thead>
+                        <tr id="trTablaAdmComentario">
+                            <th id="idTablaAdmComNombre" style="width: 30%;">Nombre Jugador</th>
+                            <th id="idTablaAdmComHora" style="width: 20%;">Hora del Comentario</th>
+                            <th id="idTablaAdmCom" style="width: 50%;">Comentario</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+
+                <button type="button" id="idActualizarComentarios"> Actualizar Todos los Comentarios </button>
+
+    
+            </article>
+        </section>
+        <footer id="foot">
+        <p> Desarrollado por Gustavo Falco (estudiante 218814) y Martin Arismendi (estudiante 353787)</p>
+        </footer> 
+
+    </body>        
+
+</html>

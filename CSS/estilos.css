@@ -1,0 +1,212 @@
+/*Gustavo Falco (estudiante 218814) y Martin Arismendi (estudiante 353787)*/
+
+/* Suaviza el desplazamiento al usar anclas */
+*{
+font-family: Arial, Helvetica, sans-serif;
+font-weight: bold;
+}
+
+html { scroll-behavior: smooth;}
+
+
+#idMiniJuego 
+{
+  color: rgb(95, 94, 94);
+  font-family: Arial, Helvetica, sans-serif;
+  animation: blinker 1s linear infinite; /*hace que titile el titulo cada 1 segundo e infinitamente*/
+}
+
+@keyframes blinker {
+  50% {
+    opacity: 0; /* hace que desaparezca al 50% la animación del titulo titilante (aparece y desaparece)*/
+  }
+}
+
+nav{
+  position: fixed; /*permite dejar el menu de nav aunque nos movamos con scroll*/
+  top: 0;
+  right: 0;
+  background-color: blue;
+  border-bottom-left-radius: 15%;
+  padding: 10px 15px;
+}
+
+
+
+/*----------------------------------------TABLAS-----------------------------------------------*/
+
+/* SECCION DATOS*/
+#idtabla{ /*le damos estilos a la tabla*/
+  border-collapse: separate;
+  width: 100%;
+  text-align: center;
+  margin-top: 15px;
+  background-color: #757474;
+  border: 2px solid black;
+  
+}
+
+#idtabla th {/*le damos estilos al titulo de la tabla*/
+  font-family: Arial, Helvetica, sans-serif;
+  text-align: center;
+  border: 2px solid black;
+}
+
+/*SECCION MODO ADMINISTRADOR*/
+#idtablaAdmResumen{ /*le damos estilos a la tabla "RESUMEN*/
+  border-collapse: separate;
+  width: 100%;
+  text-align: center;
+  margin-top: 15px;
+  background-color: #757474;
+  border: 2px solid black;
+  
+}
+#idtablaAdmResumen th {/*le damos estilos al titulo de la tabla*/
+  font-family: Arial, Helvetica, sans-serif;
+  text-align: center;
+  border: 2px solid black;
+}
+
+#idtablaAdmResumen th .label,
+#idtablaAdmResumen th .icono {
+  display: block;       /* hace que cada span ocupe su propia línea */
+  text-align: center;
+}
+
+#idTablaAdmComentario{ /*le damos estilos a la tabla "Edicion de Comentarios"*/
+  border-collapse: separate;
+  width: 100%;
+  text-align: center;
+  margin-top: 15px;
+  background-color: #757474;
+  border: 2px solid black;
+  
+}
+#idTablaAdmComentario th {/*le damos estilos al titulo de la tabla*/
+  font-family: Arial, Helvetica, sans-serif;
+  text-align: center;
+  border: 2px solid black;
+}
+
+#juegoDif td {
+  border: 2px solid #888;    
+  border-radius: 6px;       
+  padding: 3px 40px;           
+  background: #f3f3f3;      
+  text-align: center;
+  user-select: none;
+    }
+
+#juegoDif {
+  border-collapse: separate; 
+  border-spacing: 10px;   
+  user-select: none; 
+}
+
+/*-------------------------------FIN TABLAS-----------------------------------------------------------*/ 
+
+/*-------------------------------ARTICULOS------------------------------------------------------------*/
+#alta 
+{
+background-color: cornflowerblue;
+outline: 1px solid white;
+border-radius: 20px;
+padding: 15px;      
+}
+
+#info 
+{
+background-color: cornflowerblue;
+outline: 1px solid white;
+border-radius: 20px;
+padding: 15px;      
+}
+
+#coment 
+{
+background-color: cornflowerblue;
+outline: 1px solid white;
+border-radius: 20px;
+padding: 15px;      
+}
+
+#sum
+{
+background-color: cornflowerblue;
+outline: 1px solid white;
+border-radius: 20px;
+padding: 15px;      
+}
+
+#dif 
+{
+background-color: cornflowerblue;
+outline: 1px solid white;
+border-radius: 20px;
+padding: 15px;      
+}
+
+#config
+{
+background-color: cornflowerblue;
+outline: 1px solid white;
+border-radius: 20px;
+padding: 15px;      
+}
+
+#admin2
+{
+background-color: cornflowerblue;
+outline: 1px solid white;
+border-radius: 20px;
+padding: 15px;      
+}
+
+#ArtJuegoDif
+{
+background-color: azure;
+display: flex;
+justify-content: center;
+user-select: none;
+}
+
+/*--------------------------------------------FIN ARTICULOS-------------------------------------------------*/
+
+/*--------------------------------------------SECCIONES-----------------------------------------------------*/
+.datos 
+{
+background-color: blue;
+border-radius: 20px;
+padding: 15px;
+outline: 1px solid white; 
+margin:0 30px;
+}
+
+.juegos 
+{
+background-color: blue;
+border-radius: 20px;
+padding: 15px;
+outline: 1px solid white; 
+margin: 0 30px;
+}
+
+.admin 
+{
+background-color: blue;
+border-radius: 20px;
+padding: 15px;
+outline: 1px solid white;
+margin: 0 30px;
+}
+
+/*--------------------------------------FIN SECCIONES-----------------------------------------------------------*/
+
+#foot 
+{
+background-color: grey;
+text-align: center  ;
+}
+
+
