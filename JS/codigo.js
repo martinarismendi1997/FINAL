@@ -25,8 +25,10 @@ function instertTot ()
   let azarCols = Math.trunc(Math.random()*3+2);
   let repetido = Math.trunc(Math.random()*2);
 
-  let azarColsDif = Math.trunc(Math.random()*azarCols);
-  let azarFilasDif = Math.trunc(Math.random()*azarFilas);
+  let azarColsDif = Math.trunc(Math.random()*azarCols-1);
+  let azarFilasDif = Math.trunc(Math.random()*azarFilas-1);
+
+     alert(azarColsDif + " " + azarFilasDif)
   
   AgregaATabla ( azarPareja,repetido, azarFilas, azarCols);
 
