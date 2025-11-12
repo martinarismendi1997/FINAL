@@ -5,14 +5,21 @@ function inicio ()
     instertTot()
     document.getElementById("juegoDif").addEventListener("click",instertTot)
 
-    
-
-
     document.getElementById("AgregarAlta").addEventListener("click",altaJugador)
 
     document.getElementById("idEnviarComentario").addEventListener("click",comentario)
 };
     
+
+function altaJugador ()
+{
+let nombre = document.getElementById("Nombre").value
+let edad = document.getElementById("Edad").value
+let jugador = new jugador (nombre, edad)
+
+
+}
+
 
 
 
@@ -53,14 +60,6 @@ function obtenerPosicionCelda(evento) {
 
     return { fila, columna };}
 
-/*function emojinCorrecto (celda,columa) 
-{ 
-tablaActual = document.getElementById("juegosDif")
-let celda = tabla.rows[fila].cells[col];
-celda.addEventListener("click", function() {
-    console.log("Clickeaste la celda:", fila, col);
-
-}*/
 
 
 function AgregaATabla (conjunto, par, cantFil, CantCol)
