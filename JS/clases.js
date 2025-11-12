@@ -5,6 +5,7 @@ class Jugador {
   }
 }
 
+prueba 12-11
 class Sistema {
   constructor() {
     this.jugadores = [];
