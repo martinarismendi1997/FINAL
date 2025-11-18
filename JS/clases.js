@@ -3,9 +3,12 @@ class Jugador {
     this.nombre = nombre;
     this.edad = edad;
   }
+
+  toString() {
+  return {this.nombre} {this.edad} ;
+}
 }
 
-prueba 12-11
 class Sistema {
   constructor() {
     this.jugadores = [];
