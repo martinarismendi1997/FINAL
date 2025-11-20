@@ -31,6 +31,9 @@ nav{
   padding: 10px 15px;
 }
 
+.juegos, .admin {
+  display: none; /*aca bloqueamos las secciones juegos y administrador al cargar la pagina*/
+}
 
 
 /*----------------------------------------TABLAS-----------------------------------------------*/
