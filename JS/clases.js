@@ -5,7 +5,7 @@ class Jugador {
   }
 
   toString() {
-  return {this.nombre} {this.edad} ;
+  return this.nombre + " " + this.edad ;
 }
 }
 
