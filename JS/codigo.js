@@ -12,7 +12,7 @@
 
         document.getElementById("idEnviarCalculaSuma").addEventListener("click",ResultadoSuma)
 
-        document.getElementById("idEnviarComentario").addEventListener("click",comentario)
+        document.getElementById("idEnviarComentario").addEventListener("click",comentario) 
 
         
     };
