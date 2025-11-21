@@ -25,11 +25,22 @@
 
         document.getElementById("idEnviarComentario").addEventListener("click",comentario) 
 
-        document.getElementById("idActualizarComentarios").addEventListener("click", actualizarComentario)
-
-        
+        document.getElementById("idActualizarComentarios").addEventListener("click", actualizarComentario)        
     };
- 
+    
+    function mostrarSeccion(seccion) {/*comenzamos el juego bloqueando las secciones juegos y admin*/
+
+        if ((seccion === "juegos" || seccion === "admin") && sistema.jugadores.length === 0) {
+            alert("Debe ingresar al menos un jugador para jugar.");
+            return; /*este if es el que detecta el error al querer jugar sin jugador*/
+        }
+        /*esto lo vimos con ChatGPT*/
+        document.querySelector(".datos").style.display = "none"; /*bloqueamos todas las secciones*/ 
+        document.querySelector(".juegos").style.display = "none";
+        document.querySelector(".admin").style.display = "none";
+        document.querySelector("." + seccion).style.display = "block"; /*con esta linea mostramos solo la seleccionada*/
+    }    
+
     function altaJugador (){
         if (document.getElementById("formAltaJugadores").reportValidity()){ /*validamos la edad */
             let nombre = document.getElementById("Nombre").value;
