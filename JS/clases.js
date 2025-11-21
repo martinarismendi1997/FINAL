@@ -17,4 +17,26 @@ class Sistema {
   agregarJugador(jugador) {
     this.jugadores.push(jugador);
   }
+
+  darTodos() {
+    return this.jugadores;
+  }
+
+  estaNombre(nombre) {
+    let existe = false;
+    let i = 0;
+    while (i < this.jugadores.length) {
+      if (this.jugadores[i].nombre === nombre) {
+        existe = true;
+      } 
+      i ++;
+    }
+    return existe;
+  }
+}
+
+class Comentarios {
+  constructor(){
+    this.comentario = this.comentario;
+  }
 }

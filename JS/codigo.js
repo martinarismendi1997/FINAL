@@ -6,18 +6,42 @@
 
         juegoSuma ()
 
-        document.getElementById("juegoDif").addEventListener("click", clickear)
+
 
         document.getElementById("AgregarAlta").addEventListener("click",altaJugador)
+
+        document.getElementById("juegoDif").addEventListener("click", clickear)
 
         document.getElementById("idEnviarCalculaSuma").addEventListener("click",ResultadoSuma)
 
         document.getElementById("idEnviarComentario").addEventListener("click",comentario) 
 
+        document.getElementById("idActualizarComentarios").addEventListener("click", actualizarComentario)
+
         
     };
  
+    function altaJugador (){
+        if (document.getElementById("formAltaJugadores").reportValidity()){ /*validamos la edad */
+            let nombre = document.getElementById("Nombre").value
+            let edad = document.getElementById("Edad").value
 
+            if (!sistema.estaNombre(nombre)) {
+                Sistema.agregarJugador(new Jugador(nombre, edad));
+                document.getElementById("idFormulario").reset();
+            } 
+            else {
+                alert("¡Nombre repetido!, ingrese otro por favor");
+            }
+
+            let totalTabla =  document.getElementById("idtabla")
+            let fila = totalTabla.insertRow()
+            let izq = fila.insertCell()
+            izq.innerHTML = nombre
+            let der = fila.insertCell()
+            der.innerHTML = edad
+        }
+    }
 
     /** -------------------------------------------- COMIENZA JUEGO DE DIFERENCIA--------------------------------------------------------------**/
 
@@ -146,19 +170,6 @@ function comentario ()
 }
 
 
-function altaJugador ()
-{
- 
-    let nombre = document.getElementById("Nombre").value
-    let edad = document.getElementById("Edad").value
-
-    let totalTabla =  document.getElementById("idtabla")
-    let fila = totalTabla.insertRow()
-    let izq = fila.insertCell()
-    izq.innerHTML = nombre
-    let der = fila.insertCell()
-    der.innerHTML = edad
-}
 
 /** -------------------------------------------- TERMINA JUEGO DE DIFERENCIA--------------------------------------------------------------**/
 

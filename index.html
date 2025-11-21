@@ -20,19 +20,19 @@
         <header>
                  <h1 id="idMiniJuego"> ¡Mini Juegos para todos!</h1> 
         </header>
-        
+
         <section class="datos">
             <h2> Datos </h2>
 
             <article id="alta">
-             <form>
+             <form id="formAltaJugadores">
                     <h2> Alta de jugadores </h2>
 
                     <label for="Nombre"> Nombre </label>
                     <input type="text" id="Nombre" name="Nombre" required>
             
                     <label for="Edad"> Edad </label>
-                    <input type="number" id="Edad" name="Edad" min="5" max="100" value="5">
+                    <input type="number" id="Edad" name="Edad" min="5" max="100" value="5" checked>
             
                     <button type="button" id="AgregarAlta"> Agregar</button>
               </form>
@@ -40,7 +40,7 @@
             
             <article id="info">
                 <h2> Información </h2>  
-                <form> <!--Ver la utilizacion de form-->
+                <form id="formInformacion">
                     <input type="radio" id="orden1" name="orden" value= "nombre_creciente" checked> 
                     <label for="orden1">  Comentarios ordenados por nombre creciente </label>
 
