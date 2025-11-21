@@ -40,3 +40,6 @@ class Comentarios {
     this.comentario = this.comentario;
   }
 }
+
+let sistema = new sistema();
+

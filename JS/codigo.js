@@ -23,24 +23,32 @@
  
     function altaJugador (){
         if (document.getElementById("formAltaJugadores").reportValidity()){ /*validamos la edad */
-            let nombre = document.getElementById("Nombre").value
-            let edad = document.getElementById("Edad").value
+            let nombre = document.getElementById("Nombre").value;
+            let edad = document.getElementById("Edad").value;
 
-            if (!sistema.estaNombre(nombre)) {
-                Sistema.agregarJugador(new Jugador(nombre, edad));
-                document.getElementById("idFormulario").reset();
-            } 
-            else {
+            if (sistema.estaNombre(nombre)) { /*validamos el nombre del jugador*/
                 alert("¡Nombre repetido!, ingrese otro por favor");
             }
+            let jug = new Jugador (nombre, edad); /*creamos un nuevo jugador */
+            sistema.agregarJugador(jug); /*lo agregamos a nuestro sistema*/
 
-            let totalTabla =  document.getElementById("idtabla")
-            let fila = totalTabla.insertRow()
-            let izq = fila.insertCell()
-            izq.innerHTML = nombre
-            let der = fila.insertCell()
-            der.innerHTML = edad
+            let tabla = document.querySelector("#idtabla tbody");
+            let fila = tabla.insertRow();
+            fila.insertCell().textContent = nombre; /*estuve leyendo que innerHTML no es seguro y se puede modificar el codigo desde el exterior*/
+            fila.insertCell().textContent = edad; /*al usar textContent se soluciona es "falla"*/
+            fila.insertCell().textContent = ""; /*creamos el campo coemntarios para agregarlo despues*/
+        
+            let sel = document.getElementById("Jugador"); /*sel es el select donde va jugador*/
+            let op = document.createElement("option");
+            op.value = nombre;
+            op.textContent = nombre;
+            sel.appendChild(op);
+        
         }
+
+        /*para resetear los campos de Alta Jugador, no me quedo con el reset*/
+        document.getElementById("Nombre").value = ""; 
+        document.getElementById("Edad").value = 5;
     }
 
     /** -------------------------------------------- COMIENZA JUEGO DE DIFERENCIA--------------------------------------------------------------**/
