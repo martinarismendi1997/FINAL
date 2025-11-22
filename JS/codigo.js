@@ -1,9 +1,8 @@
     window.addEventListener("load", inicio);
 
-    function inicio ()
-    {
-        instertTot()
+    function inicio (){
 
+        instertTot()
         juegoSuma ()
 
         document.getElementById("botonDatos").addEventListener("click", function() {
@@ -43,11 +42,12 @@
 
     function altaJugador (){
         if (document.getElementById("formAltaJugadores").reportValidity()){ /*validamos la edad */
-            let nombre = document.getElementById("Nombre").value;
+            let nombre = document.getElementById("Nombre").value.trim(); /*la funcion trim() saca espacios en blanco*/
             let edad = document.getElementById("Edad").value;
 
             if (sistema.estaNombre(nombre)) { /*validamos el nombre del jugador*/
                 alert("¡Nombre repetido!, ingrese otro por favor");
+                return;
             }
             let jug = new Jugador (nombre, edad); /*creamos un nuevo jugador */
             sistema.agregarJugador(jug); /*lo agregamos a nuestro sistema*/
@@ -215,4 +215,10 @@ function ResultadoSuma (){
         valor1.style.backgroundColor = "yellow"
     }
     
+}
+
+/* ----------------------------------COMENTARIOS-------------------------------------- */
+
+function actualizarComentario() {    // Esta función la vamos a programar después
+
 }
