@@ -58,11 +58,7 @@
             fila.insertCell().textContent = edad; /*al usar textContent se soluciona es "falla"*/
             fila.insertCell().textContent = ""; /*creamos el campo coemntarios para agregarlo despues*/
         
-            let sel = document.getElementById("Jugador"); /*sel es el select donde va jugador*/
-            let op = document.createElement("option");
-            op.value = nombre;
-            op.textContent = nombre;
-            sel.appendChild(op);        
+            document.getElementById("Jugador").append(new Option(nombre, nombre)); /*creamos Option y Select*/
         }
 
         /*para resetear los campos de Alta Jugador, no me quedo con el reset*/
