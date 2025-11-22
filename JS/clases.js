@@ -41,5 +41,5 @@ class Comentarios {
   }
 }
 
-let sistema = new sistema();
+let sistema = new Sistema();
 
