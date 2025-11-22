@@ -2,16 +2,22 @@ class Jugador {
   constructor(nombre, edad) {
     this.nombre = nombre;
     this.edad = edad;
+    this.difOK = 0;
+    this.difMal = 0;
+    this.sumaOK = 0;
+    this.sumaMal = 0;
+    this.comentario = [];
   }
 
   toString() {
-  return this.nombre + " " + this.edad ;
-}
+    return this.nombre + " ( " + this.edad + "años )";
+  }
 }
 
 class Sistema {
   constructor() {
     this.jugadores = [];
+    this.comentarios = [];
   }
 
   agregarJugador(jugador) {
@@ -20,6 +26,10 @@ class Sistema {
 
   darTodos() {
     return this.jugadores;
+  }
+
+  darTodosComentarios(){
+    return this.comentarios;
   }
 
   estaNombre(nombre) {
@@ -33,12 +43,41 @@ class Sistema {
     }
     return existe;
   }
+
+  buscarJugador(nombre) {
+    let encontrado = "null"; /*partimos que ese jugador no está*/
+    for (let i = 0; i < this.jugadores.length; i++) {
+      if (this.jugadores[i].nombre === nombre) {
+        encontrado = this.jugadores[i];
+      }
+    }
+    return encontrado;
+  }
+
+  agregarComentario(comentario) {
+    this.comentarios.push(comentario);
+  
+    let jug = this.buscarJugador(comentario.nombre);
+    if (jug !== null) { /*si existe ese jugador le agrgamos el comentario*/
+      jug.comentarios.push(comentario);
+    }
+  }
+
 }
 
 class Comentarios {
-  constructor(){
-    this.comentario = this.comentario;
+  constructor(nombreJugador, texto, hora){
+    this.nombre = nombreJugador;
+    this.texto = texto;
+    this.hora = hora;
   }
+  toString() {
+    return this.nombre + ": " + this.texto + " (" + this.hora + ")";
+  }
+}
+
+function actSualizarComentario() {
+    // Esta función la vamos a programar después
 }
 
 let sistema = new Sistema();
