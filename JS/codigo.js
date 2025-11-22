@@ -1,7 +1,7 @@
     window.addEventListener("load", inicio);
 
-    function inicio (){
-
+    function inicio ()
+    {
         instertTot()
         juegoSuma ()
 
@@ -18,9 +18,9 @@
 
         document.getElementById("AgregarAlta").addEventListener("click",altaJugador)
 
-        document.getElementById("juegoDif").addEventListener("click", clickear)
+        document.getElementById("juegoDif").addEventListener("click", EligioJugador)
 
-        document.getElementById("idEnviarCalculaSuma").addEventListener("click",ResultadoSuma)
+        document.getElementById("idEnviarCalculaSuma").addEventListener("click",EligioJugadorSuma)
 
         document.getElementById("idEnviarComentario").addEventListener("click",comentario) 
 
@@ -110,6 +110,14 @@
         } return tabla
     }
     
+    
+    function EligioJugador (evento) {
+        let eligio = document.getElementById ("Jugador").value
+        if (!eligio) {alert("Debe seleccionar un jugador")} else {clickear (evento)}
+
+    }
+    
+    
     function clickear (evento){
         let ResJuego1 = false 
         let celda = evento.target.closest("td");
@@ -189,6 +197,11 @@ function juegoSuma (){
     parrafo.innerHTML = ("Sume " + num1 + " + " + num2)
 }
 
+function EligioJugadorSuma (){
+        let eligio = document.getElementById ("Jugador").value
+        if (!eligio) {alert("Debe seleccionar un jugador")} else {ResultadoSuma ()}
+
+    }
 function ResultadoSuma (){
     let resultado = false   
     let valor = document.getElementById("ResultSuma").value
