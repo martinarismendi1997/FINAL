@@ -186,11 +186,6 @@ let parejas = [
     ["😐", "😶"],
 ]
 
-function comentario (){
-    let comentario = document.getElementById("Comentarios").value
-}
-
-
 /** -------------------------------------------- TERMINA JUEGO DE DIFERENCIA--------------------------------------------------------------**/
 
 /** -------------------------------------------- COMIENZA JUEGO DE LA SUMA--------------------------------------------------------------**/
@@ -279,7 +274,6 @@ function comentario() {
     actualizarComentario();
     actualizarTablaResumen();
     document.getElementById("Comentarios").value = ""; /*vaciamos el contenido de comentarios*/
-
 }
 
 function actualizarTablaDatos() {
@@ -306,7 +300,7 @@ function actualizarTablaDatos() {
 function actualizarComentario() {
 
     let tabla = document.querySelector("#idTablaAdmComentario tbody");
-    tabla.innerHTML = "" /*reseteamos la tabla para comenzar*/
+    tabla.innerHTML = "" /*reseteamos el casillero para comenzar*/
 
     let lista = sistema.comentarios.slice(); /*hacemos una copia de la lista para no modificar la original, lo vimos en clase*/
 
@@ -329,6 +323,7 @@ function actualizarComentario() {
         fila.insertCell().textContent = com.hora;
         fila.insertCell().textContent = com.texto;
     }
+    
 }
 
 function actualizarTablaResumen() {
@@ -356,6 +351,28 @@ function actualizarTablaResumen() {
         fila.insertCell().textContent = jug.sumaOK;
         fila.insertCell().textContent = jug.sumaMal;
         fila.insertCell().textContent = jug.comentarios.length; /*la cantidad de comentarios que tiene*/
+    }
+}
+
+/*--------------------------------------------------------------------------------------------------*/
+
+function actualizarListaNuncaJugaron() {    
+    let lista = document.getElementById("idListaJugNucaJuega"); /*creamos la lista de jugadores que nunca jugaron*/
+    lista.innerHTML = "";
+    
+    for (let i = 0; i < sistema.jugadores.length; i++) { /*recorremos la lista de jugadores para verificar quien no jugo*/
+        let jug = sistema.jugadores[i]; /*esta variable es para revisar todos los jugadores*/
+        let nuncaJugo = /*esta variable es para verificar cada jugador si jugo o no*/
+            jug.difOK === 0 &&
+            jug.difMal === 0 &&
+            jug.sumaOK === 0 &&
+            jug.sumaMal === 0;
+        
+        if (nuncaJugo) { /*si es true se agrega, si es false no se agrega*/
+            let noJugo = document.createElement("li"); 
+            noJugo.textContent = jug.nombre + " (" + jug.edad + " años)";
+            lista.appendChild(noJugo);
+        }
     }
 }
 
