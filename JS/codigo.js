@@ -336,7 +336,6 @@ function actualizarComentario() {
         let input = document.createElement("input");
         input.type = "text";
         input.value = aux.texto;
-
         celdaComentario.appendChild(input);
     }
     

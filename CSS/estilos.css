@@ -107,6 +107,11 @@ nav{
   user-select: none; 
 }
 
+
+#idTablaAdmComentario td { /*no logramos hacer que cambie de color*/
+    background-color: #757474;
+}
+
 /*-------------------------------FIN TABLAS-----------------------------------------------------------*/ 
 
 /*-------------------------------ARTICULOS------------------------------------------------------------*/
