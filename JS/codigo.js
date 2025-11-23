@@ -16,17 +16,19 @@
         });
         mostrarSeccion("datos");
 
+        document.getElementById("orden1").addEventListener("change", actualizarTablaDatos)
+        document.getElementById("orden2").addEventListener("change", actualizarTablaDatos)
+        document.getElementById("iddestacar").addEventListener("input", actualizarTablaDatos)
         document.getElementById("AgregarAlta").addEventListener("click",altaJugador)
-
         document.getElementById("juegoDif").addEventListener("click", EligioJugador)
-
         document.getElementById("idEnviarCalculaSuma").addEventListener("click",EligioJugadorSuma)
-
-        document.getElementById("idEnviarComentario").addEventListener("click",comentario) 
-
-        document.getElementById("idActualizarComentarios").addEventListener("click", actualizarComentario)
-        
+        document.getElementById("idEnviarComentario").addEventListener("click",comentario)
+        document.getElementById("idActualizarComentarios").addEventListener("click", actualizarComentario)        
         document.getElementById("idActualizarComentarios").addEventListener ("click", actualizarComentariosEditados)
+
+        actualizarTablaDatos();
+        actualizarListaNuncaJugaron();
+        actualizarListaMasComentaron();
     };
     
     function mostrarSeccion(seccion) {/*comenzamos el juego bloqueando las secciones juegos y admin*/
@@ -53,13 +55,10 @@
             }
             let jug = new Jugador (nombre, edad); /*creamos un nuevo jugador */
             sistema.agregarJugador(jug); /*lo agregamos a nuestro sistema*/
+            actualizarListaNuncaJugaron();
+            actualizarListaMasComentaron();
+            actualizarTablaDatos();
 
-            let tabla = document.querySelector("#idtabla tbody");
-            let fila = tabla.insertRow();
-            fila.insertCell().textContent = nombre; /*estuve leyendo que innerHTML no es seguro y se puede modificar el codigo desde el exterior*/
-            fila.insertCell().textContent = edad; /*al usar textContent se soluciona esa "falla"*/
-            fila.insertCell().textContent = ""; /*creamos el campo coemntarios para agregarlo despues*/
-        
             document.getElementById("Jugador").append(new Option(nombre, nombre)); /*creamos Option y Select*/
         }
 
@@ -148,6 +147,8 @@
             jugador.difMal++; /*le cargamos los errados*/
         }
         actualizarTablaResumen();
+        actualizarListaNuncaJugaron();
+        actualizarListaMasComentaron();
     };
 
 function tieneSonido (){
@@ -234,6 +235,8 @@ function ResultadoSuma (){
         jugador.sumaMal++;
     }
     actualizarTablaResumen(); /*actualizamos los datos en la tabla*/
+    actualizarListaNuncaJugaron();
+    actualizarListaMasComentaron();
 
     if (resultado && tieneSonido()){
         valor1.style.backgroundColor = "lightgreen";
@@ -283,27 +286,63 @@ function comentario() {
     actualizarTablaDatos(); /*actualizamos la tabla*/
     actualizarComentario();
     actualizarTablaResumen();
+    actualizarListaNuncaJugaron();
+    actualizarListaMasComentaron();
     document.getElementById("Comentarios").value = ""; /*vaciamos el contenido de comentarios*/
 }
 
 function actualizarTablaDatos() {
 
     let tabla = document.querySelector("#idtabla tbody");
-    tabla.innerHTML = ""; /*accedemos a la tabla y la reseteamos*/
+    tabla.innerHTML = "";
 
-    for (let i = 0; i < sistema.jugadores.length; i++) {
-        let jug = sistema.jugadores[i];        
+    let opcion = document.querySelector('input[name="orden"]:checked').value;
+    let listaJugadores = sistema.jugadores.slice();
+    
+    if (opcion === "nombre_creciente") { 
+        listaJugadores.sort(function(a, b) {
+            if (a.nombre < b.nombre) return -1;
+            if (a.nombre > b.nombre) return 1;
+            return 0;
+        });
+
+    } else if (opcion === "edad_creciente") {
+        listaJugadores.sort(function(a, b) {
+            return a.edad - b.edad;
+        });
+    }
+
+    let palabra = document.getElementById("iddestacar").value.trim().toLowerCase();
+
+    for (let j = 0; j < listaJugadores.length; j++) {
+        let jug = listaJugadores[j];
         let fila = tabla.insertRow();
-        fila.insertCell().textContent = jug.nombre; /*no usamos innerHTML*/
-        fila.insertCell().textContent = jug.edad;
-        let textoComentarios = "";
-
-        for (let j = 0; j < jug.comentarios.length; j++) {
-            let aux = jug.comentarios[j];
-            textoComentarios += "- " + aux.texto + " (" + aux.hora + ")\n";
+        fila.insertCell().textContent = jug.nombre;
+        fila.insertCell().textContent = jug.edad;        
+        let comentario = "";
+        if (jug.comentarios.length > 0) {
+            comentario = jug.comentarios[jug.comentarios.length - 1].texto;
+        }        
+        if (palabra !== "" && comentario.toLowerCase().includes(palabra)) {
+            let comentarioMinus = comentario.toLowerCase();
+            let palabraMinus = palabra.toLowerCase();
+            let resultado = "";
+            let k = 0;
+            while (k < comentario.length) {
+                if (comentarioMinus.startsWith(palabraMinus, k)) {
+                    let original = comentario.substring(k, k + palabra.length);
+                    resultado += '<span style="color:red;">' + original + '</span>';
+                    k += palabra.length;
+                } 
+                else {
+                    resultado += comentario[k];
+                    k++;
+                }
+            }
+            comentario = resultado;
         }
-        
-        fila.insertCell().textContent = textoComentarios;
+        let celdaComentario = fila.insertCell();
+        celdaComentario.innerHTML = comentario;
     }
 }
 
@@ -364,6 +403,8 @@ function actualizarComentariosEditados() { /*con ayuida de ChatGPT porque no nos
     actualizarComentario();
     actualizarTablaDatos();
     actualizarTablaResumen();
+    actualizarListaNuncaJugaron();
+    actualizarListaMasComentaron();
 
     alert("Comentarios actualizados correctamente.");
 }
@@ -401,9 +442,17 @@ function actualizarTablaResumen() {
 function actualizarListaNuncaJugaron() {    
     let lista = document.getElementById("idListaJugNucaJuega"); /*creamos la lista de jugadores que nunca jugaron*/
     lista.innerHTML = "";
+
+    let listaCopia = sistema.jugadores.slice();
+    listaCopia.sort(function(a, b) {
+        if (a.nombre < b.nombre) return -1;
+        if (a.nombre > b.nombre) return 1;
+        return 0;
+    });
     
-    for (let i = 0; i < sistema.jugadores.length; i++) { /*recorremos la lista de jugadores para verificar quien no jugo*/
-        let jug = sistema.jugadores[i]; /*esta variable es para revisar todos los jugadores*/
+    for (let i = 0; i < listaCopia.length; i++) { /*recorremos la lista de jugadores para verificar quien no jugo*/
+        let jug = listaCopia[i]; /*esta variable es para revisar todos los jugadores*/
+        
         let nuncaJugo = /*esta variable es para verificar cada jugador si jugo o no*/
             jug.difOK === 0 &&
             jug.difMal === 0 &&
@@ -418,3 +467,21 @@ function actualizarListaNuncaJugaron() {
     }
 }
 
+function actualizarListaMasComentaron() {
+
+    let lista = document.getElementById("idListaJugMayorCant");
+    lista.innerHTML = "";
+
+    let jugadoresOrdenados = sistema.jugadores.slice(); /*Clonamos la lista para trabajar*/
+
+    jugadoresOrdenados.sort(function(a, b) { /*la ordenamos*/
+        return b.comentarios.length - a.comentarios.length;
+    });
+
+    for (let i = 0; i < jugadoresOrdenados.length; i++) {
+        let jug = jugadoresOrdenados[i];
+        let li = document.createElement("li");
+        li.textContent = jug.nombre + " — " + jug.comentarios.length + " comentarios";
+        lista.appendChild(li);
+    }
+}
