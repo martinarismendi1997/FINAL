@@ -6,7 +6,7 @@ class Jugador {
     this.difMal = 0;
     this.sumaOK = 0;
     this.sumaMal = 0;
-    this.comentario = [];
+    this.comentarios = [];
   }
 
   toString() {
@@ -65,7 +65,7 @@ class Sistema {
 
 }
 
-class Comentarios {
+class Comentario {
   constructor(nombreJugador, texto, hora){
     this.nombre = nombreJugador;
     this.texto = texto;

@@ -55,7 +55,7 @@
             let tabla = document.querySelector("#idtabla tbody");
             let fila = tabla.insertRow();
             fila.insertCell().textContent = nombre; /*estuve leyendo que innerHTML no es seguro y se puede modificar el codigo desde el exterior*/
-            fila.insertCell().textContent = edad; /*al usar textContent se soluciona es "falla"*/
+            fila.insertCell().textContent = edad; /*al usar textContent se soluciona esa "falla"*/
             fila.insertCell().textContent = ""; /*creamos el campo coemntarios para agregarlo despues*/
         
             document.getElementById("Jugador").append(new Option(nombre, nombre)); /*creamos Option y Select*/
@@ -114,13 +114,12 @@
     function EligioJugador (evento) {
         let eligio = document.getElementById ("Jugador").value
         if (!eligio) {alert("Debe seleccionar un jugador")} else {clickear (evento)}
-
     }
     
     
-    function clickear (evento){
+    function clickear (evento){ 
         let ResJuego1 = false 
-        let celda = evento.target.closest("td");
+        let celda = evento.target.closest("td"); /*NOS AYUDO CHAT CON ESTA PARTE DEL CODIGO*/
         if (!celda) return;
 
         let fila = celda.parentNode.rowIndex ;
@@ -128,7 +127,8 @@
 
         if ((azarFilasDif == fila) && (azarColsDif == columna)){
                 ResJuego1 = true
-                setTimeout(instertTot, 1000);}
+                setTimeout(instertTot, 1000);
+            }              
 
         if (ResJuego1 && tieneSonido()) {hacerSonido1()}
 
@@ -137,6 +137,15 @@
         if (!tieneSonido() && ResJuego1) {alert("Correcto")}
         
         if (!tieneSonido() && !ResJuego1) {alert("Incorrecto")}
+
+        let jugador = sistema.buscarJugador(document.getElementById("Jugador").value); /*traemos al jugador*/
+        if (ResJuego1 === true) {
+            jugador.difOK++; /*le cargamos los aciertos*/
+        } 
+        else {
+            jugador.difMal++; /*le cargamos los errados*/
+        }
+        actualizarTablaResumen();
     };
 
 function tieneSonido (){
@@ -206,22 +215,39 @@ function ResultadoSuma (){
     let resultado = false   
     let valor = document.getElementById("ResultSuma").value
     let valor1 = document.getElementById("ResultSuma")
-    if (valor == (num1+num2)) {resultado = true; valor1.value = ""}
+    if (valor == (num1+num2)) {
+        resultado = true; 
+        valor1.value = "";
+    }
+
+    /*Registramos los aciertos y errores igual que en el juego anterior*/
+    let jugador = sistema.buscarJugador(document.getElementById("Jugador").value);
+    if (resultado === true) {
+    jugador.sumaOK++;
+    } 
+    else {
+        jugador.sumaMal++;
+    }
+    actualizarTablaResumen(); /*actualizamos los datos en la tabla*/
 
     if (resultado && tieneSonido()){
-        hacerSonido1(); setTimeout(juegoSuma,1000);valor1.style.backgroundColor = "lightgreen"
+        hacerSonido1(); 
+        setTimeout(juegoSuma,1000);
+        valor1.style.backgroundColor = "lightgreen";
     }
 
     if (!resultado && tieneSonido()){ 
-        hacerSonido2();valor1.style.backgroundColor = "yellow"
+        hacerSonido2();
+        valor1.style.backgroundColor = "yellow";
     }
 
     if (resultado && !tieneSonido()){
-        setTimeout(juegoSuma,1000); ;valor1.style.backgroundColor = "lightgreen"
+        setTimeout(juegoSuma,1000); 
+        valor1.style.backgroundColor = "lightgreen";
     }
 
     if (!resultado && !tieneSonido()){
-        valor1.style.backgroundColor = "yellow"
+        valor1.style.backgroundColor = "yellow";
     }
     
 }
@@ -246,11 +272,12 @@ function comentario() {
     let segundos = ahora.getSeconds();
     let horaComentario = horas + ":" + minutos + ":" + segundos;
 
-    let com = new comentario (nombreJugador, textoComentario, horaComentario);
-    sistemama.agregarComentario(com); /*agregamos el comentario al jugador*/
+    let com = new Comentario (nombreJugador, textoComentario, horaComentario);
+    sistema.agregarComentario(com); /*agregamos el comentario al jugador*/
 
     actualizarTablaDatos(); /*actualizamos la tabla*/
-    actualizarComentario(); 
+    actualizarComentario();
+    actualizarTablaResumen();
     document.getElementById("Comentarios").value = ""; /*vaciamos el contenido de comentarios*/
 
 }
@@ -263,7 +290,7 @@ function actualizarTablaDatos() {
     for (let i = 0; i < sistema.jugadores.length; i++) {
         let jug = sistema.jugadores[i];        
         let fila = tabla.insertRow();
-        fila.insertCell().textContent = jug.nombre;
+        fila.insertCell().textContent = jug.nombre; /*no usamos innerHTML*/
         fila.insertCell().textContent = jug.edad;
         let textoComentarios = "";
 
@@ -279,8 +306,7 @@ function actualizarTablaDatos() {
 function actualizarComentario() {
 
     let tabla = document.querySelector("#idTablaAdmComentario tbody");
-
-    tabla.innerHTML = ""
+    tabla.innerHTML = "" /*reseteamos la tabla para comenzar*/
 
     let lista = sistema.comentarios.slice(); /*hacemos una copia de la lista para no modificar la original, lo vimos en clase*/
 
@@ -299,9 +325,37 @@ function actualizarComentario() {
         let fila = tabla.insertRow(); /* crear fila nueva*/
 
         /*Cargamos en las celdas: nombre, hora y comentario*/
-        fila.insertCell().textContent = com.nombre;
+        fila.insertCell().textContent = com.nombre; /*no usamos innerHTML*/
         fila.insertCell().textContent = com.hora;
         fila.insertCell().textContent = com.texto;
+    }
+}
+
+function actualizarTablaResumen() {
+    
+    let tabla = document.querySelector("#idTablaResumen tbody");    
+    tabla.innerHTML = ""; /*vaciamos la tabla*/
+
+    let lista = sistema.jugadores.slice();
+
+    lista.sort(function(a, b) { /*usamos la misma funcion para ordenar*/
+        if (a.nombre < b.nombre) { return -1; }
+        if (a.nombre > b.nombre) { return 1; }
+        return 0;
+    });
+    
+    for (let i = 0; i < lista.length; i++) { /*recorremos la lista*/
+        let jug = lista[i];
+        let fila = tabla.insertRow();
+
+        /*agregamos los datos a la lista en cada i*/
+        fila.insertCell().textContent = jug.nombre; /*no usamos innerHTML*/
+        fila.insertCell().textContent = jug.edad;
+        fila.insertCell().textContent = jug.difOK;
+        fila.insertCell().textContent = jug.difMal;
+        fila.insertCell().textContent = jug.sumaOK;
+        fila.insertCell().textContent = jug.sumaMal;
+        fila.insertCell().textContent = jug.comentarios.length; /*la cantidad de comentarios que tiene*/
     }
 }
 
