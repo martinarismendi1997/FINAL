@@ -24,7 +24,9 @@
 
         document.getElementById("idEnviarComentario").addEventListener("click",comentario) 
 
-        document.getElementById("idActualizarComentarios").addEventListener("click", actualizarComentario)        
+        document.getElementById("idActualizarComentarios").addEventListener("click", actualizarComentario)
+        
+        document.getElementById("idActualizarComentarios").addEventListener ("click", actualizarComentariosEditados)
     };
     
     function mostrarSeccion(seccion) {/*comenzamos el juego bloqueando las secciones juegos y admin*/
@@ -308,11 +310,11 @@ function actualizarTablaDatos() {
 function actualizarComentario() {
 
     let tabla = document.querySelector("#idTablaAdmComentario tbody");
-    tabla.innerHTML = "" /*reseteamos el casillero para comenzar*/
+    tabla.innerHTML = "" /*reseteamos para comenzar*/
 
-    let lista = sistema.comentarios.slice(); /*hacemos una copia de la lista para no modificar la original, lo vimos en clase*/
+    let lista = sistema.comentarios.slice();
 
-    lista.sort(function(a, b) {
+    lista.sort(function(a, b) { /*ordenamos la lista por hora*/
     if (a.hora < b.hora) { 
         return -1; 
     }
@@ -323,15 +325,48 @@ function actualizarComentario() {
     });
 
     for (let i = 0; i < lista.length; i++) {
-        let com = lista[i]; /* recorre los comentarios  */
-        let fila = tabla.insertRow(); /* crear fila nueva*/
+        let aux = lista[i];
+        let fila = tabla.insertRow(); /* creamos fila nueva*/
 
         /*Cargamos en las celdas: nombre, hora y comentario*/
-        fila.insertCell().textContent = com.nombre; /*no usamos innerHTML*/
-        fila.insertCell().textContent = com.hora;
-        fila.insertCell().textContent = com.texto;
+        fila.insertCell().textContent = aux.nombre; /*no usamos innerHTML*/
+        fila.insertCell().textContent = aux.hora;
+        
+        let celdaComentario = fila.insertCell();
+        let input = document.createElement("input");
+        input.type = "text";
+        input.value = aux.texto;
+
+        celdaComentario.appendChild(input);
     }
     
+}
+
+function actualizarComentariosEditados() { /*con ayuida de ChatGPT porque no nos salia el codigo*/
+
+    let tabla = document.querySelector("#idTablaAdmComentario tbody");
+    let filas = tabla.getElementsByTagName("tr");
+
+    let listaOrdenada = sistema.comentarios.slice(); 
+
+    listaOrdenada.sort(function(a, b) {
+        if (a.hora < b.hora) return -1;
+        if (a.hora > b.hora) return 1;
+        return 0;
+    });
+
+    for (let i = 0; i < filas.length; i++) {
+        let inputComentario = filas[i].querySelector("input");        
+        let nuevoTexto = inputComentario.value;
+        let comentarioOriginal = listaOrdenada[i];
+        comentarioOriginal.texto = nuevoTexto;
+    }
+    
+    actualizarComentario();
+    actualizarTablaDatos();
+    actualizarTablaResumen();
+
+    alert("Comentarios actualizados correctamente.");
 }
 
 function actualizarTablaResumen() {
