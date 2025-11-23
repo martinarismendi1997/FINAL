@@ -203,13 +203,21 @@ function juegoSuma (){
 
 function EligioJugadorSuma (){
         let eligio = document.getElementById ("Jugador").value
-        if (!eligio) {alert("Debe seleccionar un jugador")} else {ResultadoSuma ()}
+        if (!eligio) {
+            alert("Debe seleccionar un jugador")
+        } 
+        else {
+            ResultadoSuma ()
+        }
 
     }
 function ResultadoSuma (){
     let resultado = false   
-    let valor = document.getElementById("ResultSuma").value
     let valor1 = document.getElementById("ResultSuma")
+    let valor = valor1.value;
+
+    valor1.style.backgroundColor = "white";
+    
     if (valor == (num1+num2)) {
         resultado = true; 
         valor1.value = "";
@@ -226,19 +234,19 @@ function ResultadoSuma (){
     actualizarTablaResumen(); /*actualizamos los datos en la tabla*/
 
     if (resultado && tieneSonido()){
-        hacerSonido1(); 
-        setTimeout(juegoSuma,1000);
         valor1.style.backgroundColor = "lightgreen";
+        hacerSonido1(); 
+        setTimeout(juegoSuma,1000);        
     }
 
     if (!resultado && tieneSonido()){ 
-        hacerSonido2();
         valor1.style.backgroundColor = "yellow";
+        hacerSonido2();        
     }
 
     if (resultado && !tieneSonido()){
-        setTimeout(juegoSuma,1000); 
         valor1.style.backgroundColor = "lightgreen";
+        setTimeout(juegoSuma,1000);        
     }
 
     if (!resultado && !tieneSonido()){
@@ -328,7 +336,7 @@ function actualizarComentario() {
 
 function actualizarTablaResumen() {
     
-    let tabla = document.querySelector("#idTablaResumen tbody");    
+    let tabla = document.querySelector("#idtablaAdmResumen tbody");    
     tabla.innerHTML = ""; /*vaciamos la tabla*/
 
     let lista = sistema.jugadores.slice();
