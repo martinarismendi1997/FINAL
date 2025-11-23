@@ -76,7 +76,7 @@ class Comentarios {
   }
 }
 
-function actSualizarComentario() {
+function actualizarComentario() {
     // Esta función la vamos a programar después
 }
 

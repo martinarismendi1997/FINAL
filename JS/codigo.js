@@ -228,6 +228,80 @@ function ResultadoSuma (){
 
 /* ----------------------------------COMENTARIOS-------------------------------------- */
 
-function actualizarComentario() {    // Esta función la vamos a programar después
+function comentario() {
+    let nombreJugador = document.getElementById("Jugador").value;
+    if (nombreJugador === "A completar" || nombreJugador === "") {
+        alert("Debe seleccionar un jugador para comentar.");
+        return; /* Aca verificamos que seleccionamos un jugador*/
+    }
+
+    let textoComentario = document.getElementById("Comentarios").value.trim();
+    if (textoComentario === "") {
+        alert("Debe escribir un comentario.");
+        return;
+    }
+    let ahora = new Date(); /*es una funcion ya existente en J.S */
+    let horas = ahora.getHours();
+    let minutos = ahora.getMinutes();
+    let segundos = ahora.getSeconds();
+    let horaComentario = horas + ":" + minutos + ":" + segundos;
+
+    let com = new comentario (nombreJugador, textoComentario, horaComentario);
+    sistemama.agregarComentario(com); /*agregamos el comentario al jugador*/
+
+    actualizarTablaDatos(); /*actualizamos la tabla*/
+    actualizarComentario(); 
+    document.getElementById("Comentarios").value = ""; /*vaciamos el contenido de comentarios*/
 
 }
+
+function actualizarTablaDatos() {
+
+    let tabla = document.querySelector("#idtabla tbody");
+    tabla.innerHTML = ""; /*accedemos a la tabla y la reseteamos*/
+
+    for (let i = 0; i < sistema.jugadores.length; i++) {
+        let jug = sistema.jugadores[i];        
+        let fila = tabla.insertRow();
+        fila.insertCell().textContent = jug.nombre;
+        fila.insertCell().textContent = jug.edad;
+        let textoComentarios = "";
+
+        for (let j = 0; j < jug.comentarios.length; j++) {
+            let aux = jug.comentarios[j];
+            textoComentarios += "- " + aux.texto + " (" + aux.hora + ")\n";
+        }
+        
+        fila.insertCell().textContent = textoComentarios;
+    }
+}
+
+function actualizarComentario() {
+
+    let tabla = document.querySelector("#idTablaAdmComentario tbody");
+
+    tabla.innerHTML = ""
+
+    let lista = sistema.comentarios.slice(); /*hacemos una copia de la lista para no modificar la original, lo vimos en clase*/
+
+    lista.sort(function(a, b) {
+    if (a.hora < b.hora) { 
+        return -1; 
+    }
+    if (a.hora > b.hora) { 
+        return 1; 
+    }
+    return 0; /*si son iguales retorna 0*/
+    });
+
+    for (let i = 0; i < lista.length; i++) {
+        let com = lista[i]; /* recorre los comentarios  */
+        let fila = tabla.insertRow(); /* crear fila nueva*/
+
+        /*Cargamos en las celdas: nombre, hora y comentario*/
+        fila.insertCell().textContent = com.nombre;
+        fila.insertCell().textContent = com.hora;
+        fila.insertCell().textContent = com.texto;
+    }
+}
+
