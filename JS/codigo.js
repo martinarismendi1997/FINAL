@@ -484,11 +484,20 @@ function actualizarListaMasComentaron() {
     jugadoresOrdenados.sort(function(a, b) { /*la ordenamos por nombre*/
         return a.nombre.localeCompare(b.nombre);
     });
+    let hayDatos= false;
 
     for (let i = 0; i < jugadoresOrdenados.length; i++) {
         let jug = jugadoresOrdenados[i];
+            if (jug.comentarios.length > 0) {
+            let li = document.createElement("li");
+            li.textContent = jug.nombre + " — " + jug.comentarios.length + " comentarios";
+            lista.appendChild(li);
+            hayDatos = true;
+        }        
+    }
+    if (!hayDatos){
         let li = document.createElement("li");
-        li.textContent = jug.nombre + " — " + jug.comentarios.length + " comentarios";
+        li.textContent = "Sin datos";
         lista.appendChild(li);
     }
 
