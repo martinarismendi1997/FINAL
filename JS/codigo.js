@@ -47,7 +47,7 @@
 
     function altaJugador (){
         if (document.getElementById("formAltaJugadores").reportValidity()){ /*validamos la edad */
-            let nombre = document.getElementById("Nombre").value.trim(); /*la funcion trim() saca espacios en blanco*/
+            let nombre = document.getElementById("Nombre").value.trim().toUpperCase(); /*la funcion trim() saca espacios en blanco*/
             let edad = document.getElementById("Edad").value;
             let textoMostrar = nombre + " (" + edad + " años)";
             let opcion = new Option (textoMostrar, nombre);
@@ -66,7 +66,7 @@
             document.getElementById("Jugador").value = nombre;
         }
         else {
-            alert ("Ingresó datos incorrectos, verifique!");x
+            alert ("Ingresó datos incorrectos, verifique!");
         }
 
         /*para resetear los campos de Alta Jugador, no me quedo con el reset*/
@@ -481,8 +481,8 @@ function actualizarListaMasComentaron() {
 
     let jugadoresOrdenados = sistema.jugadores.slice(); /*Clonamos la lista para trabajar*/
 
-    jugadoresOrdenados.sort(function(a, b) { /*la ordenamos*/
-        return b.comentarios.length - a.comentarios.length;
+    jugadoresOrdenados.sort(function(a, b) { /*la ordenamos por nombre*/
+        return a.nombre.localeCompare(b.nombre);
     });
 
     for (let i = 0; i < jugadoresOrdenados.length; i++) {
@@ -491,4 +491,5 @@ function actualizarListaMasComentaron() {
         li.textContent = jug.nombre + " — " + jug.comentarios.length + " comentarios";
         lista.appendChild(li);
     }
+
 }
