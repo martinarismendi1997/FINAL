@@ -1,5 +1,5 @@
     /*Gustavo Falco (estudiante 218814) y Martin Arismendi (estudiante 353787)*/
-    
+
     window.addEventListener("load", inicio);
 
     function inicio ()
@@ -61,6 +61,9 @@
             actualizarTablaDatos();
 
             document.getElementById("Jugador").append(new Option(nombre, nombre)); /*creamos Option y Select*/
+        }
+        else {
+            alert ("Ingresó datos incorrectos, verifique!");
         }
 
         /*para resetear los campos de Alta Jugador, no me quedo con el reset*/
