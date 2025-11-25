@@ -49,6 +49,8 @@
         if (document.getElementById("formAltaJugadores").reportValidity()){ /*validamos la edad */
             let nombre = document.getElementById("Nombre").value.trim(); /*la funcion trim() saca espacios en blanco*/
             let edad = document.getElementById("Edad").value;
+            let textoMostrar = nombre + " (" + edad + " años)";
+            let opcion = new Option (textoMostrar, nombre);
 
             if (sistema.estaNombre(nombre)) { /*validamos el nombre del jugador*/
                 alert("¡Nombre repetido!, ingrese otro por favor");
@@ -60,10 +62,11 @@
             actualizarListaMasComentaron();
             actualizarTablaDatos();
 
-            document.getElementById("Jugador").append(new Option(nombre, nombre)); /*creamos Option y Select*/
+            document.getElementById("Jugador").append(opcion); /*creamos Option y Select*/
+            document.getElementById("Jugador").value = nombre;
         }
         else {
-            alert ("Ingresó datos incorrectos, verifique!");
+            alert ("Ingresó datos incorrectos, verifique!");x
         }
 
         /*para resetear los campos de Alta Jugador, no me quedo con el reset*/
