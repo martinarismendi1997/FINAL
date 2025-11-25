@@ -32,7 +32,7 @@
                     <input type="text" id="Nombre" name="Nombre" required>
             
                     <label for="Edad"> Edad </label>
-                    <input type="number" id="Edad" name="Edad" min="5" max="100" value="5" checked>
+                    <input type="number" id="Edad" name="Edad" min="5" max="100" value="5">
             
                     <button type="button" id="AgregarAlta"> Agregar</button>
                 </form>
@@ -93,7 +93,7 @@
             <article id="dif">
                 <h2> ¿Cuál es el diferente? </h2>
                 <h4> Presiona el diferente </h4> <!--aca creo que no va un h4 en el Ob2 van a ir datos-->
-                <article id="ArtJuegoDif"> <table id="juegoDif"> </table> </article>
+                <div id="ArtJuegoDif"> <table id="juegoDif"> </table> </div>
             </article>
 
             <article id="sum">
@@ -111,7 +111,7 @@
                 <h2> Ingresa tu comentario </h2>
 
                 <label for="Comentarios"> Comentarios:</label><br>
-                <textarea id="Comentarios" name="Comentarios" rows="5" cols="40" required></textarea> <!--Esto lo saque de chatgpt // No necesita type porque textarea es universal, no acepta tipos-->
+                <textarea id="Comentarios" name="Comentarios" rows="5" cols="40" maxlength="40"></textarea> <!--Esto lo saque de chatgpt // No necesita type porque textarea es universal, no acepta tipos-->
                 <br> <!--es para que quede debajo del cuedro "Comentarios" en estilos tenemos que modificarlo para eliminar este br-->
                 <button type="button" id="idEnviarComentario">Enviar comentario</button>
             </article>    

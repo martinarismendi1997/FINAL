@@ -22,8 +22,7 @@
         document.getElementById("AgregarAlta").addEventListener("click",altaJugador)
         document.getElementById("juegoDif").addEventListener("click", EligioJugador)
         document.getElementById("idEnviarCalculaSuma").addEventListener("click",EligioJugadorSuma)
-        document.getElementById("idEnviarComentario").addEventListener("click",comentario)
-        document.getElementById("idActualizarComentarios").addEventListener("click", actualizarComentario)        
+        document.getElementById("idEnviarComentario").addEventListener("click",comentario)     
         document.getElementById("idActualizarComentarios").addEventListener ("click", actualizarComentariosEditados)
 
         actualizarTablaDatos();
