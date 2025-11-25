@@ -1,3 +1,5 @@
+/*Gustavo Falco (estudiante 218814) y Martin Arismendi (estudiante 353787)*/
+
 class Jugador { 
   constructor(nombre, edad) {
     this.nombre = nombre;

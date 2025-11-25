@@ -1,3 +1,5 @@
+    /*Gustavo Falco (estudiante 218814) y Martin Arismendi (estudiante 353787)*/
+    
     window.addEventListener("load", inicio);
 
     function inicio ()
